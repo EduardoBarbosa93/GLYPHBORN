@@ -10,7 +10,7 @@ internal class TesteJokenpo
 
         Console.WriteLine("Digite sua idade: ");
         int idade = Convert.ToInt32(Console.ReadLine());
-
+         
         if (idade < 15)
         {
 
@@ -18,7 +18,7 @@ internal class TesteJokenpo
         }
         else
         {
-            Console.WriteLine("Bem-vindo ao jogo, " + nome + "! Vamos começar a batalha!");
+            Console.WriteLine("Bem-vindo ao jogo, " + nome + "! Vamos começar a batalha!");                                                  
             Console.WriteLine("Bem vindo ao jokenpo mágico!!");
             Console.WriteLine("Em um reino distante, um grande torneio era realizado todos os anos para decidir quem seria o maior campeão.");
             Console.WriteLine("Três heróis foram escolhidos pelo rei para controlar as poderosas criaturas mágicas do reino e colocá-las para lutar.");
@@ -26,25 +26,25 @@ internal class TesteJokenpo
             Console.WriteLine("Aperte qualquer tecla para iniciar a batalha!");
             Console.ReadKey();
             Console.Clear();                                                               // Após uma introdução breve, o combate se iniciaria, e assim a tela se limpa.
-            Console.WriteLine("========== NOVO COMBATE ==========");
-
             int hpjogador = 10;
             int hpcomputador = 10;
+            int rodada = 1;
             string[] jogadas = { "Unicórnio", "Pegasus", "Grifo" };                         // Início do combate, onde as variáveis de vida do player e da máquina são dadas, e as jogadas são definidas
 
             while (hpjogador > 0 && hpcomputador > 0)                                                // Estrutura básica de combate, onde o jogador e a máquina vão se enfrentando até que um deles tenha o hp == 0            {
             {
                 Random AtqComp = new Random();
-                int ataqueComp = AtqComp.Next(0, jogadas.Length);
+                int ataqueComp = AtqComp.Next(0, jogadas.Length);                    // Aqui é definido a jogada do computador, que é aleatória, e a jogada do jogador, que é escolhida por ele.
                 string jogadaComp = jogadas[ataqueComp];
 
+                Console.WriteLine("========== RODADA " + rodada + "  ==========");
                 Console.WriteLine("Escolha sua criatura e ataque mágico: ");
                 Console.WriteLine("Unicórnio | Pegasus | Grifo");
                 string ataque = Console.ReadLine()!;
                 Console.WriteLine("Você escolheu: " + ataque);
                 Console.WriteLine("A máquina escolheu: " + jogadaComp);
 
-                switch (ataque)
+                switch (ataque)                                          // Switch case serve para as jogadas do jogador e dentro dele, o if else compara com a jogada do computador, e assim define quem vence a rodada.
                 {
                     case "Unicórnio":
                         if (jogadaComp == "Pegasus")
@@ -129,7 +129,7 @@ internal class TesteJokenpo
 
                 Console.WriteLine("==================================");
 
-                if (hpjogador <= 0)
+                if (hpjogador <= 0)                                                             // Decisão de quem venceu a batalha, e uma mensagem de vitória ou derrota é mostrada ao jogador.
                 {
                     Console.WriteLine("O computador venceu a batalha! Mais sorte na próxima vez, " + nome + ".");
                 }
@@ -139,9 +139,10 @@ internal class TesteJokenpo
                 }
 
                 Console.WriteLine();
-                Console.WriteLine("Pressione qualquer tecla para continuar...");
+                Console.WriteLine("Pressione qualquer tecla para continuar...");       // Serve para o jogador ver o resultado da batalha antes de limpar a tela e iniciar uma nova rodada.
                 Console.ReadKey();
                 Console.Clear();
+                rodada++;
             }
 
 
