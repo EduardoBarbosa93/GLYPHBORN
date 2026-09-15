@@ -1,11 +1,8 @@
-﻿
-
-
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Xml.XPath;
 
-// Toda a introdução do jogo é feita aqui, respeitando a idade mínima e pedido de nome do usuário 
-Console.WriteLine("Digite seu nome, domador de fer222as: ");
+// Toda a introdução do jogo é feita aqui, respeitando a idade mínima e pedido de nome do usuário
+Console.WriteLine("Digite seu nome, domador de feras: ");
 string nome = Console.ReadLine()!;
 
 Console.WriteLine("Digite sua idade: ");
@@ -15,6 +12,7 @@ if (idade < 15)
 {
 
     Console.WriteLine("Você é muito jovem para jogar, " + nome + ". Volte quando tiver mais idade.");
+
 }
 else
 {
@@ -95,11 +93,43 @@ else
     }
 
     // While que define o sistema de partidas por fora do de derrotas
-    while (partida <= 3 && !zerou)
+    while (partida <= 4 && !zerou)
     {
-        if (Xp == 3)
+        hpcomputador = 1;
+        // Sistema de progressão bem simples
+        // Ganhou -> Xp aumenta -> subiu de nível - > modificação é feita
+        if (Xp == 1)
+        {
+            hpjogador = 12;
+            Console.WriteLine("Você subiu de nível!!");
+            Console.WriteLine("Agora, você está no nível 1");
+            Console.WriteLine("HP UP - Você ganhou mais 2 de hp!");
+            
+        }
+        else if (Xp == 2)
+        {
+            Console.WriteLine("Você subiu de nível!!");
+            Console.WriteLine("Agora, você está no nível 2");
+            Console.WriteLine("Com tanta experiência, você agora aprendeu a habilidade: 'Corram, equinos!'");
+            Console.WriteLine("1x por partida, você pode correr contra o tempo e reiniciar o hp de ambos os jogadores!");
+            
+        }
+        else if (Xp == 3)
+        {
+            hpcomputador = 15;
+            dano = 4;
+            Console.WriteLine("Você subiu de nível!!");
+            Console.WriteLine("Agora, você está no nível 3");
+            Console.WriteLine("Suas criaturas apreciaram os combates feitos e se sentem mais fortes!!");
+            Console.WriteLine("Todas as suas criaturas ganham mais 1 de dano permanente!");
+            
+        }
+
+        Console.WriteLine("Vitórias conquistadas: " + Xp);
+        if (Xp == 4)
         {
             Console.WriteLine("Prepare-se, agora é a batalha final!");
+            Console.WriteLine("O Rei te espera na arena!");
         }
         else
         {
@@ -107,7 +137,7 @@ else
         }
 
         Console.WriteLine("Aperte qualquer tecla para ir para a próxima batalha");
-        Console.ReadKey();
+        Console.ReadKey(true);
         Console.Clear();
 
         rodada = 1;
@@ -120,62 +150,9 @@ else
         bool habilidadePegasusUsada = false;
         bool jogadaUnicornioUsada = false;
         bool HabilidadeGrifoUsada = false;
-        Console.WriteLine("Vitórias conquistadas: " + Xp);
-
-        // Sistema de progressão bem simples
-        // Ganhou -> Xp aumenta -> subiu de nível - > modificação é feita
-
-
-        if (Xp >= 1)
-        {
-            hpjogador = 12;
-
-        }
-
-        else if (Xp <= 0)
-        {
-            hpcomputador = 1;
-            hpjogador = 10;
-        }
-
-        if (partida >= 3)
-        {
-            hpcomputador = 15;
-        }
-
-
-        if (Xp >= 3)
-        {
-            dano = 4;
-        }
-
-
-        if (Xp == 1)
-        {
-            Console.WriteLine("Você subiu de nível!!");
-            Console.WriteLine("Agora, você está no nível 1");
-            Console.WriteLine("HP UP - Você ganhou mais 2 de hp!");
-            Console.Clear();
-        }
-        else if (Xp == 2)
-        {
-            Console.WriteLine("Você subiu de nível!!");
-            Console.WriteLine("Agora, você está no nível 2");
-            Console.WriteLine("Com tanta experiência, você agora aprendeu a habilidade: 'Corram, equinos!'");
-            Console.WriteLine("1x por partida, você pode correr contra o tempo e reiniciar o hp de ambos os jogadores!");
-            Console.Clear();
-        }
-        else if (Xp == 3)
-        {
-            Console.WriteLine("Você subiu de nível!!");
-            Console.WriteLine("Agora, você está no nível 3");
-            Console.WriteLine("Suas criaturas apreciaram os combates feitos e se sentem mais fortes!!");
-            Console.WriteLine("Todas as suas criaturas ganham mais 1 de dano permanente!");
-            Console.Clear();
-        }
-
-
-
+        bool habilidadeEquinosUsada = false;
+                        
+       
         // Estrutura básica de combate, onde o jogador e a máquina vão se enfrentando até que um deles tenha o hp == 0  
         while (hpjogador > 0 && hpcomputador > 0)
         {
@@ -185,18 +162,19 @@ else
                 Console.WriteLine("Você deseja usar a habilidade: 'corram, equinos' e resetar a rodada?");
                 Console.WriteLine("Sim | Não");
                 Console.Write("Sua escolha -> "); string decisaopoder = Console.ReadLine()!;
-                if (decisaopoder == "sim")
+                if (decisaopoder == "Sim" && !habilidadeEquinosUsada)
                 {
                     Console.WriteLine("Você usou a habilidade: 'corram, equinos'!");
                     Console.WriteLine("O hp de ambos os jogadores foi resetado!");
+                    habilidadeEquinosUsada = true;
                     hpjogador = 10;
                     hpcomputador = 10;
 
                 }
-                Console.Clear();
+                
             }
 
-
+            Console.WriteLine("========== ADVERSÁRIO "+ partida + " =======");
             if (Xp == 3)
             {
                 Console.WriteLine("========== BATALHA FINAL ==========");
@@ -350,10 +328,10 @@ else
 
               {
 
-                 {"HP do Jogador -> ", hpjogador.ToString() },
-                 {"HP do Computador -> ", hpcomputador.ToString() },
+             {"HP do Jogador -> ", hpjogador.ToString() },
+             {"HP do Computador -> ", hpcomputador.ToString() },
 
-              };
+          };
 
             Console.WriteLine();
             Console.WriteLine("==================================");
@@ -369,48 +347,29 @@ else
             // Decisão de quem venceu a batalha, e uma mensagem de vitória ou derrota é mostrada ao jogador.
             if (hpjogador <= 0)
             {
-                Console.WriteLine("O computador venceu a batalha! Mais sorte na próxima vez, " + nome + ".");
+                Console.WriteLine("Sua criatura foi derrotada e condenada, você perdeu! " + nome + ".");
             }
             else if (hpcomputador <= 0)
             {
-                if (partida == 3)
+                if (partida > 3)
                 {
-                    Console.WriteLine("Parabéns! Você derrotou o rei!");
-                    Console.WriteLine("Você se tornou o campeão de GLYPHBORN!");
-
+                    Console.WriteLine("Parabéns! Você derrotou o rei em seu próprio torneio");
+                    Console.WriteLine("Você se sagra campeão do grande torneio de criaturas mágicas GLYPHBORN");
                     zerou = true;
                 }
-                else
-                {
-                    Console.WriteLine("Parabéns, " + nome + "! Você venceu a batalha!");
-
-                    partida++;
-                    Xp++;
-                }
-
-
-                if (partida == 4)
-                {
-                    zerou = true;
-                }
-            }
-            else
-            {
-                Console.WriteLine();
-                Console.WriteLine("Pressione qualquer tecla para continuar...");
-                Console.ReadKey(true);
-                Console.Clear();
+                Console.WriteLine("Parabéns, " + nome + "! Você venceu a batalha!");
+                partida++;
+                Xp++;
             }
 
-            rodada++;
             // Serve para o jogador ver o resultado da batalha antes de limpar a tela e iniciar uma nova rodada
-
+            Console.WriteLine();
+            Console.WriteLine("Pressione qualquer tecla para continuar...");
+            Console.ReadKey();
+            Console.Clear();
+            rodada++;
 
         }
-
-
-
-
 
     }
 
